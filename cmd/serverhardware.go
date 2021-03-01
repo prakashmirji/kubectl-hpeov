@@ -32,7 +32,7 @@ var serverhardwareCmd = &cobra.Command{
 
 	kubectl hpeov serverhardware get --all .`,
 	Run: func(cmd *cobra.Command, args []string) {
-		processCLI(cmd)
+		processShCLI(cmd)
 	},
 }
 
@@ -45,7 +45,7 @@ var shGetSubCmd = &cobra.Command{
 kubectl hpeov serverhardware get --all
 kubectl hpeov serverhardware get --name=<name of server hardware>.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		processCLI(cmd)
+		processShCLI(cmd)
 	},
 }
 
@@ -57,7 +57,7 @@ var shPowerSubCmd = &cobra.Command{
 
 kubectl hpeov serverhardware power --name <server hardware name> --powerstatus=On`,
 	Run: func(cmd *cobra.Command, args []string) {
-		processCLI(cmd)
+		processShCLI(cmd)
 	},
 }
 
@@ -81,13 +81,15 @@ func init() {
 	shPowerSubCmd.Flags().StringP("powerstate", "p", "", "Pass value as On or Off")
 }
 
-func processCLI(cmd *cobra.Command) {
+func processShCLI(cmd *cobra.Command) {
 	// TODO - validate the flags or args len
 	switch cmd.Name() {
 	case "get":
 		getServerHardwareData(cmd)
 	case "power":
 		updateServerPowerState(cmd)
+	default:
+		cmd.Help()
 	}
 
 }
