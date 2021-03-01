@@ -16,9 +16,7 @@ limitations under the License.
 package cmd
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"text/tabwriter"
 
@@ -32,13 +30,8 @@ var serverhardwareCmd = &cobra.Command{
 	Short: "A subcommand of hpeov cli for getting server hardware details",
 	Long: `A subcommand of hpeov cli getting server hardware details. For example:
 
-	kubectl hpeov serverhardware get all .`,
+	kubectl hpeov serverhardware get --all .`,
 	Run: func(cmd *cobra.Command, args []string) {
-		//fmt.Println("name called")
-		fstatus, _ := cmd.Flags().GetBool("all")
-		fmt.Println("all :", fstatus)
-		fstr, _ := cmd.Flags().GetString("name")
-		fmt.Println("fstr :", fstr)
 		processCLI(cmd)
 	},
 }
@@ -49,7 +42,8 @@ var shGetSubCmd = &cobra.Command{
 	Short: "A subcommand of hpeov serverhardware cli for getting server hardware details",
 	Long: `A subcommand of hpeov serverhardware cli for getting server hardware details. For example:
 
-kubectl hpeov serverhardware get all.`,
+kubectl hpeov serverhardware get --all
+kubectl hpeov serverhardware get --name=<name of server hardware>.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		processCLI(cmd)
 	},
@@ -61,7 +55,7 @@ var shPowerSubCmd = &cobra.Command{
 	Short: "A subcommand of hpeov serverhardware cli for powering ON/OFF server hardware details",
 	Long: `A subcommand of hpeov serverhardware cli for powering ON/OFF server hardware details. For example:
 
-kubectl hpeov serverhardware power --name <server hardware name> --powerstatus=ON.`,
+kubectl hpeov serverhardware power --name <server hardware name> --powerstatus=On`,
 	Run: func(cmd *cobra.Command, args []string) {
 		processCLI(cmd)
 	},
@@ -142,25 +136,4 @@ func updateServerPowerState(cmd *cobra.Command) {
 		fmt.Printf("Failed to update power state for server: %s, error: %v\n", name, err)
 	}
 	fmt.Printf("Server :%s power state changed succesfully to :%s\n", name, powerState)
-}
-
-func hexToName(args []string) {
-	var hexMap map[string]string
-
-	// read the color.min.json
-	content, err := ioutil.ReadFile("colornames.min.json")
-
-	if err != nil {
-		fmt.Printf("Error while reading the file  %v", err)
-	}
-
-	_ = json.Unmarshal(content, &hexMap)
-
-	name, ok := hexMap[args[0]]
-
-	if ok {
-		fmt.Printf("Name: %s, Hex: %s\n", name, args[0])
-	} else {
-		fmt.Printf("color name not found\n")
-	}
 }
