@@ -56,9 +56,12 @@ This is Go CLi application based on Cobra. It is still in development phase.
         ```
         A kubectl extension for hpe oneview product. For example:
 
-        kubectl hpeov serverhardware get all 
-        kubectl hpeov serverhardware power --name <server name> on
-        kubectl hpeov serverprofile create --file <json payload to create profile>.
+        kubectl hpeov serverhardware get --all
+        kubectl hpeov serverhardware get --name=<name of server hardware> 
+        kubectl hpeov serverhardware power --name=<server name> --powerstate=On
+        kubectl hpeov serverprofile create --file=<json payload to create profile>.
+        kubectl hpeov serverprofile get --all
+        kubectl hpeov serverprofile get --name=<name of the profile>
 
         Usage:
         hpeov [command]
@@ -76,8 +79,8 @@ This is Go CLi application based on Cobra. It is still in development phase.
         ```
 
 ### How to test during development without kubectl
-    Just build the go CLI binary and test it with commands, args and flags
-    Use help command to know the args and flags currently supported
+Just build the go CLI binary and test it with commands, args and flags.
+Use help command to know the args and flags currently supported
 
 ### Contributions
 Looking for contributors who can help in adding more features

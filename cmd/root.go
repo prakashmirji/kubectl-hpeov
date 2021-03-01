@@ -33,9 +33,12 @@ var rootCmd = &cobra.Command{
 	Short: "A kubectl extension for hpe oneview product",
 	Long: `A kubectl extension for hpe oneview product. For example:
 
-kubectl hpeov serverhardware get all 
-kubectl hpeov serverhardware power --name <server name> on
-kubectl hpeov serverprofile create --file <json payload to create profile>.`,
+	kubectl hpeov serverhardware get --all
+	kubectl hpeov serverhardware get --name=<name of server hardware> 
+	kubectl hpeov serverhardware power --name=<server name> --powerstate=On
+	kubectl hpeov serverprofile create --file=<json payload to create profile>.
+	kubectl hpeov serverprofile get --all
+	kubectl hpeov serverprofile get --name=<name of the profile>.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
