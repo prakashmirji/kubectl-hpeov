@@ -104,9 +104,9 @@ func getServerHardwareData(cmd *cobra.Command) {
 		for idx, svr := range serverList.Members {
 			w := tabwriter.NewWriter(os.Stdout, 0, 8, 1, '\t', tabwriter.AlignRight)
 			if idx == 0 {
-				fmt.Fprintln(w, "Server Name\tPower State\tModel\tMemory\tStatus\tiLO Address")
+				fmt.Fprintln(w, "Server Name\tPower State\tModel\tMemory\tStatus\tiLO Address\tProfle State")
 			}
-			fmt.Fprintln(w, svr.Name+"\t"+svr.PowerState+"\t"+svr.ShortModel+"\t"+fmt.Sprintf("%d", svr.MemoryMb)+"\t"+svr.Status+"\t"+svr.GetIloIPAddress())
+			fmt.Fprintln(w, svr.Name+"\t"+svr.PowerState+"\t"+svr.ShortModel+"\t"+fmt.Sprintf("%d", svr.MemoryMb)+"\t"+svr.Status+"\t"+svr.GetIloIPAddress()+"\t"+svr.State)
 			w.Flush()
 		}
 		return
@@ -116,8 +116,8 @@ func getServerHardwareData(cmd *cobra.Command) {
 			fmt.Printf("Error while getting server hardware details for :%s, error:%v", name, err)
 		}
 		w := tabwriter.NewWriter(os.Stdout, 0, 8, 1, '\t', tabwriter.AlignRight)
-		fmt.Fprintln(w, "Server Name\tPower State\tModel\tMemory\tStatus\tiLO Address")
-		fmt.Fprintln(w, svr.Name+"\t"+svr.PowerState+"\t"+svr.ShortModel+"\t"+fmt.Sprintf("%d", svr.MemoryMb)+"\t"+svr.Status+"\t"+svr.GetIloIPAddress())
+		fmt.Fprintln(w, "Server Name\tPower State\tModel\tMemory\tStatus\tiLO Address\tProfle State")
+		fmt.Fprintln(w, svr.Name+"\t"+svr.PowerState+"\t"+svr.ShortModel+"\t"+fmt.Sprintf("%d", svr.MemoryMb)+"\t"+svr.Status+"\t"+svr.GetIloIPAddress()+"\t"+svr.State)
 		w.Flush()
 		return
 	}
