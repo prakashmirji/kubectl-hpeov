@@ -27,10 +27,13 @@ import (
 // serverprofileCmd represents the name command
 var serverprofileCmd = &cobra.Command{
 	Use:   "serverprofile",
-	Short: "A subcommand of hpeov cli for getting server profile details",
-	Long: `A subcommand of hpeov cli getting server profile details. For example:
+	Short: "A subcommand of hpeov cli for operating with server profile",
+	Long: `A subcommand of hpeov cli for operating with server profile. For example:
 
-	kubectl hpeov serverprofile get --all .`,
+	kubectl hpeov serverprofile get --all
+	kubectl hpeov serverprofile get --profilename=<name of server profile> 
+	kubectl hpeov serverprofile create --profilename=<name of server profile> --templatename=<name of server template>
+	kubectl hpeov serverprofile delete --profilename=<name of server profile>.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		processSpCLI(cmd)
 	},
@@ -43,7 +46,7 @@ var spGetSubCmd = &cobra.Command{
 	Long: `A subcommand of hpeov serverprofile cli for getting server profile details. For example:
 
 kubectl hpeov serverprofile get --all
-kubectl hpeov serverprofile get --name=<name of server profile>.`,
+kubectl hpeov serverprofile get --profilename=<name of server profile>.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		processSpCLI(cmd)
 	},
@@ -55,7 +58,7 @@ var spCreateSubCmd = &cobra.Command{
 	Short: "A subcommand of hpeov serverprofile cli for creating server profile details",
 	Long: `A subcommand of hpeov serverprofile cli for creating server profile details. For example:
 
-kubectl hpeov serverprofile create --file=<json POST payload of server profile>`,
+kubectl hpeov serverprofile create --profilename=<name of server profile> --templatename=<name of server template>.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		processSpCLI(cmd)
 	},
@@ -67,7 +70,7 @@ var spDeleteSubCmd = &cobra.Command{
 	Short: "A subcommand of hpeov serverprofile cli for deleting server profile using name",
 	Long: `A subcommand of hpeov serverprofile cli for deleting server profile using name. For example:
 
-kubectl hpeov serverprofile delete --name=<name of server profile>`,
+kubectl hpeov serverprofile delete --profilename=<name of server profile>`,
 	Run: func(cmd *cobra.Command, args []string) {
 		processSpCLI(cmd)
 	},
@@ -89,9 +92,10 @@ func init() {
 	// is called directly, e.g.:
 	//nameCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	spGetSubCmd.Flags().BoolP("all", "a", false, "Get all")
-	spGetSubCmd.Flags().StringP("name", "n", "", "Pass name of the server profile")
-	spDeleteSubCmd.Flags().StringP("name", "n", "", "Pass name of the server profile")
-	spCreateSubCmd.Flags().StringP("file", "f", "", "Pass json payload as a file")
+	spGetSubCmd.Flags().StringP("profilename", "n", "", "Pass name of the server profile")
+	spDeleteSubCmd.Flags().StringP("profilename", "n", "", "Pass name of the server profile")
+	spCreateSubCmd.Flags().StringP("profilename", "n", "", "Pass name of the server profile")
+	spCreateSubCmd.Flags().StringP("templatename", "t", "", "Pass name of the server profile template")
 }
 
 func processSpCLI(cmd *cobra.Command) {
@@ -111,11 +115,14 @@ func processSpCLI(cmd *cobra.Command) {
 
 func getServerProfileData(cmd *cobra.Command) {
 	allFlag, _ := cmd.Flags().GetBool("all")
-	name, _ := cmd.Flags().GetString("name")
+	name, _ := cmd.Flags().GetString("profilename")
 	if allFlag {
 		spList, err := oneview.GetAllServerProfileDetails()
 		if err != nil {
 			fmt.Printf("Error while getting server profile list, error:%v\n", err)
+		}
+		if len(spList.Members) < 1 {
+			fmt.Printf("No profile resources found \n")
 		}
 		for idx, sp := range spList.Members {
 			w := tabwriter.NewWriter(os.Stdout, 0, 8, 1, '\t', tabwriter.AlignRight)
@@ -142,9 +149,30 @@ func getServerProfileData(cmd *cobra.Command) {
 }
 
 func createServerProfile(cmd *cobra.Command) {
-	fmt.Printf("This feature is in testing phase, will be updated soon")
+
+	spName, _ := cmd.Flags().GetString("profilename")
+	sptName, _ := cmd.Flags().GetString("templatename")
+
+	if spName == "" || sptName == "" {
+		cmd.Help()
+		return
+	}
+	err := oneview.CreateServerProfile(sptName, spName)
+	if err != nil {
+		fmt.Printf("Server profile create failed for: %s, error: %v\n", spName, err)
+	}
+
+	return
 }
 
 func deleteServerProfile(cmd *cobra.Command) {
-	fmt.Printf("This feature is in testing phase, will be updated soon")
+
+	spName, _ := cmd.Flags().GetString("profilename")
+
+	err := oneview.DeleteServerProfile(spName)
+	if err != nil {
+		fmt.Printf("Server profile delete failed for: %s, error: %v\n", spName, err)
+	}
+
+	return
 }
