@@ -49,9 +49,13 @@ This is Go CLi application based on Cobra. It is still in development phase.
         kubectl hpeov serverhardware get --all
         kubectl hpeov serverhardware get --name=<name of server hardware> 
         kubectl hpeov serverhardware power --name=<server name> --powerstate=On
-        kubectl hpeov serverprofile create --file=<json payload to create profile>.
         kubectl hpeov serverprofile get --all
-        kubectl hpeov serverprofile get --name=<name of the profile>
+        kubectl hpeov serverprofile get --profilename=<name of server profile> 
+        kubectl hpeov serverprofile create --profilename=<name of server profile> --templatename=<name of server template>
+        kubectl hpeov serverprofile delete --profilename=<name of server profile>
+        kubectl hpeov servertemplate get --all
+        kubectl hpeov servertemplate get --name=<templa name>
+
 
         Usage:
         hpeov [command]
