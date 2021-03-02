@@ -6,7 +6,7 @@ import (
 	"github.com/HewlettPackard/oneview-golang/ov"
 )
 
-// GetAllServerHardwareDetails returns server hardware details
+// GetAllServerHardwareDetails returns all server hardware details
 func GetAllServerHardwareDetails() (ov.ServerHardwareList, error) {
 	ovc := GetOVClient().ovClient
 	filters := []string{""}

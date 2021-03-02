@@ -115,7 +115,7 @@ func getServerHardwareData(cmd *cobra.Command) {
 	} else if name != "" {
 		svr, err := oneview.GetServerHardwareByName(name)
 		if err != nil {
-			fmt.Printf("Error while getting server hardware details for :%s, error:%v", name, err)
+			fmt.Printf("Error while getting server hardware details for :%s, error:%v\n", name, err)
 		}
 		w := tabwriter.NewWriter(os.Stdout, 0, 8, 1, '\t', tabwriter.AlignRight)
 		fmt.Fprintln(w, "Server Name\tPower State\tModel\tMemory\tStatus\tiLO Address\tProfle State")
