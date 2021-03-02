@@ -66,15 +66,6 @@ func init() {
 	serverhardwareCmd.AddCommand(shGetSubCmd)
 	serverhardwareCmd.AddCommand(shPowerSubCmd)
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	//nameCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	//nameCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	shGetSubCmd.Flags().BoolP("all", "a", false, "Get all")
 	shGetSubCmd.Flags().StringP("name", "n", "", "Pass name of the server hardware")
 	shPowerSubCmd.Flags().StringP("name", "n", "", "Pass name of the server hardware")
@@ -95,7 +86,6 @@ func processShCLI(cmd *cobra.Command) {
 }
 
 func getServerHardwareData(cmd *cobra.Command) {
-	//fmt.Println("Server hardware list")
 	allFlag, _ := cmd.Flags().GetBool("all")
 	name, _ := cmd.Flags().GetString("name")
 	if allFlag {

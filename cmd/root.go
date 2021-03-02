@@ -34,14 +34,14 @@ var rootCmd = &cobra.Command{
 	Long: `A kubectl extension for hpe oneview product. For example:
 
 	kubectl hpeov serverhardware get --all
-	kubectl hpeov serverhardware get --name=<name of server hardware> 
-	kubectl hpeov serverhardware power --name=<server name> --powerstate=On
-	kubectl hpeov serverprofile create --file=<json payload to create profile>.
-	kubectl hpeov serverprofile get --all
-	kubectl hpeov serverprofile get --name=<name of the profile>.`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+    kubectl hpeov serverhardware get --name=<name of server hardware> 
+    kubectl hpeov serverhardware power --name=<server name> --powerstate=On
+    kubectl hpeov serverprofile get --all
+    kubectl hpeov serverprofile get --profilename=<name of server profile> 
+    kubectl hpeov serverprofile create --profilename=<name of server profile> --templatename=<name of server template>
+    kubectl hpeov serverprofile delete --profilename=<name of server profile>
+    kubectl hpeov servertemplate get --all
+    kubectl hpeov servertemplate get --name=<templa name>.`,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -52,10 +52,6 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
-
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.kubectl-hpeov.yaml)")
 
