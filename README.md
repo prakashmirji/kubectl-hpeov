@@ -9,21 +9,37 @@ with underlying bare metal servers.
 It allows K8s users with following use cases
 
 - List server details ( name, status, model, state...etc), you can below kubectl command
+    ```
     kubectl hpeov serverhardware get --all
+    ```
 - Power On/Off server, you can use below kubectl command
+    ```
     kubectl hpeov serverhardware power --name=<server name> --powerstate=On
+    ```
 - Provisioning of bare metal (applying configuration)
+    ```
     kubectl hpeov serverprofile create --profilename=<name of server profile> --templatename=<name of server template>
+    ```
 - Deprovisioning of bare metal
+    ```
     kubectl hpeov serverprofile delete --profilename=<name of server profile>
+    ```
 - List available templates
+    ```
     kubectl hpeov servertemplate get --all
+    ```
 - List running servers having profiles
+    ```
     kubectl hpeov serverprofile get --profilename=<name of server profile>
+    ```
 
 Note: You can query the resources using name flag. For example
+    ```
     kubectl hpeov serverhardware get --name=<name of server hardware>
+    ```
+
 Here 'hpeov' is the plugin name.
+
 
 This is Go CLi application based on Cobra. It is still in development phase.
 
