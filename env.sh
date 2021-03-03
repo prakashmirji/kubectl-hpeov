@@ -1,5 +1,0 @@
-export ONEVIEW_OV_ENDPOINT="https://10.188.244.79"
-export ONEVIEW_OV_USER="Administrator"
-export ONEVIEW_OV_PASSWORD="HP!nvent123"
-export ONEVIEW_OV_DOMAIN="LOCAL"
-export ONEVIEW_APIVERSION=1600
