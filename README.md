@@ -107,12 +107,12 @@ You will see a result that looks this
     
 You can get the CLI help message using below command
     
-    >./kubectl-hpeov -h  
+    >kubectl hpeov -h
 
 It prints help like this
 
         
-    A kubectl extension for hpe oneview product. For example:
+    A kubectl extension for hpe oneview bare metal servers. For example:
 
         kubectl hpeov serverhardware get --all
         kubectl hpeov serverhardware get --name=<name of server hardware> 
