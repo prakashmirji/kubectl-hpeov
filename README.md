@@ -34,6 +34,7 @@ It allows K8s users with following use cases
     ```
 
 Note: You can query the resources using name flag. For example
+
     ```
     kubectl hpeov serverhardware get --name=<name of server hardware>
     ```
@@ -47,7 +48,7 @@ This is Go CLi application based on Cobra. It is still in development phase.
 ### Pre-reqs for test
     - Go 1.14 or higher
     - k8s ( can be simple Kind based k8s cluster)
-    - Access t0 HPE Oneview
+    - Access to HPE Oneview
         Depends on https://github.com/HewlettPackard/oneview-golang
 
 
@@ -67,11 +68,19 @@ For example
 
 ### How to test using kubectl
 If you copied the binary using above steps, edit env file
+    ```
     >vi env.sh
+    ```
+
 Update the OneView details and source it like
+    ```
     >. ./env.sh
+    ```
+
 Try sample command like this
+    ```
     >kubectl hpeov serverhardware get --all
+    ```
 
 You will see a result that looks this
 
@@ -93,33 +102,30 @@ You can get the CLI help message using below command
 It prints help like this
 
         
-        A kubectl extension for hpe bare metal servers. For example:
+    A kubectl extension for hpe oneview product. For example:
 
         kubectl hpeov serverhardware get --all
         kubectl hpeov serverhardware get --name=<name of server hardware> 
         kubectl hpeov serverhardware power --name=<server name> --powerstate=On
+        kubectl hpeov serverprofile create --file=<json payload to create profile>
         kubectl hpeov serverprofile get --all
-        kubectl hpeov serverprofile get --profilename=<name of server profile> 
-        kubectl hpeov serverprofile create --profilename=<name of server profile> --templatename=<name of server template>
-        kubectl hpeov serverprofile delete --profilename=<name of server profile>
-        kubectl hpeov servertemplate get --all
-        kubectl hpeov servertemplate get --name=<templa name>
+        kubectl hpeov serverprofile get --name=<name of the profile>
 
+    Usage:
+    hpeov [command]
 
-        Usage:
-        hpeov [command]
+    Available Commands:
+    help           Help about any command
+    serverhardware A subcommand of hpeov cli for getting server hardware details
+    serverprofile  A subcommand of hpeov cli for operating with server profile
+    servertemplate A subcommand of hpeov cli for getting server template details
 
-        Available Commands:
-        help           Help about any command
-        serverhardware A subcommand of hpeov cli for getting server hardware details
+    Flags:
+        --config string   config file (default is $HOME/.kubectl-hpeov.yaml)
+    -h, --help            help for hpeov
+    -t, --toggle          Help message for toggle
 
-        Flags:
-            --config string   config file (default is $HOME/.kubectl-hpeov.yaml)
-        -h, --help            help for hpeov
-        -t, --toggle          Help message for toggle
-
-        Use "hpeov [command] --help" for more information about a command.
-        ```
+    Use "hpeov [command] --help" for more information about a command.
 
 ### How to test during development without kubectl
 Just build the go CLI binary and test it with commands, args and flags.
