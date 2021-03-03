@@ -141,5 +141,9 @@ It prints help like this
 Just build the go CLI binary and test it with commands, args and flags.
 Use help command to know the args and flags currently supported
 
-### Contributions
+### Contributing
 Looking for contributors who can help in adding more features
+
+### Author
+Prakash Mirji | prakash.mirji@hpe.com
+
