@@ -35,9 +35,9 @@ It allows K8s users with following use cases
 
 Note: You can query the resources using name flag. For example
 
-    ```
+
     kubectl hpeov serverhardware get --name=<name of server hardware>
-    ```
+
 
 Here 'hpeov' is the plugin name.
 
@@ -60,27 +60,37 @@ Clone the repo
     go install <path> or
     go build -o <name>
 
-Copy the binary to /usr/local/bin/ as kubectl-<name>
+    For example
+
+    go build -o hpeov
+
+Copy the binary you built to /usr/local/bin/ directory
+
 For example
 
     >cp hpeov /usr/local/bin/kubectl-hpeov
     >chmod +x /usr/local/bin/kubectl-hpeov
 
+The format and name when you copy to /usr/local/bin should be in the form 'kubectl-(plugin name)'
+
 ### How to test using kubectl
 If you copied the binary using above steps, edit env file
-    ```
+
+
     >vi env.sh
-    ```
+
 
 Update the OneView details and source it like
-    ```
+
+
     >. ./env.sh
-    ```
+
 
 Try sample command like this
-    ```
+
+
     >kubectl hpeov serverhardware get --all
-    ```
+
 
 You will see a result that looks this
 
