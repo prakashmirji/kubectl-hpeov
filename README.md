@@ -77,6 +77,7 @@ The format and name when you copy to /usr/local/bin should be in the form 'kubec
 If you copied the binary using above steps, edit env file
 
 
+    > cp env.sample to env.sh
     >vi env.sh
 
 
