@@ -30,8 +30,8 @@ var cfgFile string
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "hpeov",
-	Short: "A kubectl extension for hpe oneview product",
-	Long: `A kubectl extension for hpe oneview product. For example:
+	Short: "A kubectl extension for hpe bare metal servers",
+	Long: `A kubectl extension for hpe bare metal servers. For example:
 
 	kubectl hpeov serverhardware get --all
     kubectl hpeov serverhardware get --name=<name of server hardware> 
@@ -55,9 +55,6 @@ func init() {
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.kubectl-hpeov.yaml)")
 
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 // initConfig reads in config file and ENV variables if set.
